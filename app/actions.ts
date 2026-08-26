@@ -3,7 +3,6 @@
 import { cadastroSchema } from "@/lib/validations";
 import { supabaseAdmin } from "@/lib/supabase";
 import { montarMensagemWhatsApp, montarLinkWhatsApp } from "@/lib/whatsapp";
-import { enviarEmailNovoCadastro } from "@/lib/email";
 
 export interface CriarCadastroState {
   status: "idle" | "error" | "success";
@@ -55,14 +54,6 @@ export async function criarCadastro(
       values: raw,
       attempt,
     };
-  }
-
-  const emailEnviado = await enviarEmailNovoCadastro(dados, cadastro.id);
-  if (emailEnviado) {
-    await supabaseAdmin
-      .from("cadastros")
-      .update({ email_enviado: true })
-      .eq("id", cadastro.id);
   }
 
   const mensagem = montarMensagemWhatsApp(dados);

@@ -6,7 +6,7 @@ formatada para o Felipe enviar.
 
 ## Stack
 
-Next.js (App Router) + Supabase (Postgres) + Resend (e-mail) + Vercel (deploy).
+Next.js (App Router) + Supabase (Postgres) + Vercel (deploy).
 
 ## Configuração local
 
@@ -24,14 +24,10 @@ Next.js (App Router) + Supabase (Postgres) + Resend (e-mail) + Vercel (deploy).
    - `SUPABASE_URL` / `SUPABASE_SERVICE_ROLE_KEY`: em Project Settings > API do
      Supabase. **Use a service role key** (a tabela fica com RLS ligado e sem
      policy pública — só o servidor acessa).
-   - `RESEND_API_KEY`, `FELIPE_EMAIL`, `RESEND_FROM_EMAIL`: crie uma conta em
-     [resend.com](https://resend.com), gere uma API key. Para testar sem
-     domínio verificado, use `onboarding@resend.dev` como remetente.
    - `ADMIN_PASSWORD`: senha de acesso ao painel `/admin`.
    - `ADMIN_SESSION_SECRET`: uma string aleatória longa (ex.: gere com
      `openssl rand -hex 32`).
-   - `NEXT_PUBLIC_SITE_URL`: URL pública do site (usada no link do e-mail de
-     aviso).
+   - `NEXT_PUBLIC_SITE_URL`: URL pública do site.
 
 4. Rode o servidor de desenvolvimento:
 

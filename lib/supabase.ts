@@ -35,5 +35,4 @@ export interface Cadastro {
   musica: string | null;
   instagram: string;
   responsavel_nome: string;
-  email_enviado: boolean;
 }

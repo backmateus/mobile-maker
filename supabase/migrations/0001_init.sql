@@ -19,9 +19,7 @@ create table if not exists cadastros (
   musica text,
   instagram text not null,
 
-  responsavel_nome text not null,
-
-  email_enviado boolean not null default false
+  responsavel_nome text not null
 );
 
 create index if not exists cadastros_status_idx on cadastros (status);
