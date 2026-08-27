@@ -64,3 +64,13 @@ export async function atualizarStatusCadastro(
   revalidatePath(`/admin/cadastro/${id}`);
   revalidatePath("/admin/dashboard");
 }
+
+export async function excluirCadastro(id: string) {
+  const { error } = await supabaseAdmin.from("cadastros").delete().eq("id", id);
+
+  if (error) {
+    throw new Error("Não foi possível excluir o cadastro.");
+  }
+
+  revalidatePath("/admin/dashboard");
+}

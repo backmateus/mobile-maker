@@ -3,6 +3,7 @@ import Link from "next/link";
 import { supabaseAdmin } from "@/lib/supabase";
 import { linkWhatsAppDoCadastro } from "@/lib/whatsapp";
 import StatusSelect from "@/components/admin/StatusSelect";
+import DeleteButton from "@/components/admin/DeleteButton";
 
 function formatarData(dataISO: string) {
   const [ano, mes, dia] = dataISO.split("-");
@@ -77,6 +78,8 @@ export default async function CadastroDetailPage({
         >
           📲 Reenviar no WhatsApp
         </a>
+
+        <DeleteButton id={cadastro.id} atletaNome={cadastro.atleta_nome} />
       </div>
     </div>
   );

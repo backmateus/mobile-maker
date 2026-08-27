@@ -12,10 +12,27 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const title = "Mobile Maker — Cadastro de Atleta";
+const description =
+  "Cadastre seu atleta para captação e edição de vídeos com a Mobile Maker.";
+
 export const metadata: Metadata = {
-  title: "Mobile Maker — Cadastro de Atleta",
-  description:
-    "Cadastre seu atleta para captação e edição de vídeos com a Mobile Maker.",
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL || "https://mobile-maker.vercel.app"
+  ),
+  title,
+  description,
+  openGraph: {
+    title,
+    description,
+    type: "website",
+    locale: "pt_BR",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description,
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
