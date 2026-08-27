@@ -10,7 +10,10 @@ export const cadastroSchema = z.object({
   sub: z.string().trim().min(1, "Informe a categoria (sub)"),
   numero: z.string().trim().min(1, "Informe o número da camisa"),
   posicao: z.string().trim().min(1, "Informe a posição"),
-  musica: z.string().trim().optional(),
+  musica: z
+    .string()
+    .trim()
+    .min(1, "Informe a música ou marque 'Escolha do editor'"),
   instagram: z.string().trim().min(1, "Informe o Instagram"),
   responsavel_nome: z.string().trim().min(1, "Informe o nome do responsável"),
 });

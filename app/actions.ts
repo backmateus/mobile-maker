@@ -39,7 +39,7 @@ export async function criarCadastro(
       sub: dados.sub,
       numero: dados.numero,
       posicao: dados.posicao,
-      musica: dados.musica || null,
+      musica: dados.musica,
       instagram: dados.instagram,
       responsavel_nome: dados.responsavel_nome,
     })

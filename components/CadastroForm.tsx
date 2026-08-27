@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useState } from "react";
 import { useFormStatus } from "react-dom";
 import { criarCadastro, type CriarCadastroState } from "@/app/actions";
 import ConfirmacaoWhatsApp from "./ConfirmacaoWhatsApp";
@@ -37,6 +37,41 @@ function Campo({
         className="w-full rounded-lg border border-border bg-surface px-4 py-3 text-base text-foreground placeholder:text-muted/60 outline-none focus:border-gold focus:ring-1 focus:ring-gold transition-colors"
       />
     </label>
+  );
+}
+
+const ESCOLHA_EDITOR = "Escolha do editor";
+
+function CampoMusica({ defaultValue }: { defaultValue?: string }) {
+  const jaEraEscolhaEditor = defaultValue === ESCOLHA_EDITOR;
+  const [escolhaEditor, setEscolhaEditor] = useState(jaEraEscolhaEditor);
+  const [valor, setValor] = useState(jaEraEscolhaEditor ? "" : defaultValue ?? "");
+
+  return (
+    <div className="flex flex-col gap-2">
+      <label className="flex flex-col gap-1.5">
+        <span className="text-sm font-medium text-muted">Música</span>
+        <input
+          name="musica"
+          type="text"
+          required
+          readOnly={escolhaEditor}
+          placeholder="Nome da música"
+          value={escolhaEditor ? ESCOLHA_EDITOR : valor}
+          onChange={(e) => setValor(e.target.value)}
+          className="w-full rounded-lg border border-border bg-surface px-4 py-3 text-base text-foreground placeholder:text-muted/60 outline-none focus:border-gold focus:ring-1 focus:ring-gold transition-colors read-only:opacity-60"
+        />
+      </label>
+      <label className="flex items-center gap-2 text-sm text-muted">
+        <input
+          type="checkbox"
+          checked={escolhaEditor}
+          onChange={(e) => setEscolhaEditor(e.target.checked)}
+          className="h-4 w-4 rounded border-border accent-gold"
+        />
+        Escolha do editor (não tenho preferência de música)
+      </label>
+    </div>
   );
 }
 
@@ -100,7 +135,7 @@ export default function CadastroForm() {
           <Campo
             label="Sub (categoria)"
             name="sub"
-            placeholder="Ex: Sub-13"
+            placeholder="Ex: 13"
             defaultValue={v.sub}
           />
         </div>
@@ -108,13 +143,7 @@ export default function CadastroForm() {
           <Campo label="Número da camisa" name="numero" defaultValue={v.numero} />
           <Campo label="Posição" name="posicao" defaultValue={v.posicao} />
         </div>
-        <Campo
-          label="Música"
-          name="musica"
-          required={false}
-          placeholder="Música para o vídeo"
-          defaultValue={v.musica}
-        />
+        <CampoMusica defaultValue={v.musica} />
         <Campo
           label="Instagram"
           name="instagram"

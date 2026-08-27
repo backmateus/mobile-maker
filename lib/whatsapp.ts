@@ -13,6 +13,11 @@ function formatarInstagram(instagram: string) {
   return `@${limpo}`;
 }
 
+function formatarSub(sub: string) {
+  const limpo = sub.trim().replace(/^sub[\s-]*/i, "");
+  return `Sub-${limpo}`;
+}
+
 export function montarMensagemWhatsApp(cadastro: {
   confronto: string;
   data_jogo: string;
@@ -23,30 +28,24 @@ export function montarMensagemWhatsApp(cadastro: {
   sub: string;
   numero: string;
   posicao: string;
-  musica?: string | null;
+  musica: string;
   instagram: string;
   responsavel_nome: string;
 }) {
   const linhas = [
-    "📋 NOVO CADASTRO — Mobile Maker",
+    "📋 CONFIRMAÇÃO DE FILMAGEM",
     "",
     `⚽ Confronto: ${cadastro.confronto}`,
     `📅 Data: ${formatarData(cadastro.data_jogo)} às ${cadastro.horario}`,
     `📍 Local: ${cadastro.local}`,
     "",
     `👤 Atleta: ${cadastro.atleta_nome}`,
-    `🏳️ Time: ${cadastro.time_atleta}  |  ${cadastro.sub}  |  Nº ${cadastro.numero}  |  Posição: ${cadastro.posicao}`,
-  ];
-
-  if (cadastro.musica && cadastro.musica.trim()) {
-    linhas.push(`🎵 Música: ${cadastro.musica.trim()}`);
-  }
-
-  linhas.push(
+    `🏳️ Time: ${cadastro.time_atleta}  |  ${formatarSub(cadastro.sub)}  |  Nº ${cadastro.numero}  |  Posição: ${cadastro.posicao}`,
+    `🎵 Música: ${cadastro.musica}`,
     `📱 Instagram: ${formatarInstagram(cadastro.instagram)}`,
     "",
-    `Responsável: ${cadastro.responsavel_nome}`
-  );
+    `Responsável: ${cadastro.responsavel_nome}`,
+  ];
 
   return linhas.join("\n");
 }
@@ -56,6 +55,9 @@ export function montarLinkWhatsApp(mensagem: string, numero = FELIPE_WHATSAPP) {
 }
 
 export function linkWhatsAppDoCadastro(cadastro: Cadastro) {
-  const mensagem = montarMensagemWhatsApp(cadastro);
+  const mensagem = montarMensagemWhatsApp({
+    ...cadastro,
+    musica: cadastro.musica || "Escolha do editor",
+  });
   return montarLinkWhatsApp(mensagem);
 }
